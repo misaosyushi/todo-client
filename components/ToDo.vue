@@ -1,9 +1,8 @@
 <template>
-  <v-data-table :headers="headers" :items="toDoList" sort-by="calories" class="elevation-1">
+  <v-data-table :headers="headers" :items="toDoList" :search="search" sort-by="deadlineDate" class="elevation-1">
     <template v-slot:top>
       <v-toolbar flat>
-        <v-toolbar-title>My ToDo</v-toolbar-title>
-        <v-divider class="mx-4" inset vertical></v-divider>
+        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="800px">
           <template v-slot:activator="{ on, attrs }">
@@ -85,14 +84,13 @@ const Status = {
 
 export default {
   data: () => ({
+    search: '',
     dialog: false,
-    date: new Date().toISOString().substr(0, 10),
     menu: false,
     headers: [
       {
         text: 'Title',
         align: 'start',
-        sortable: false,
         value: 'title',
       },
       { text: 'Detail', value: 'detail' },
@@ -159,6 +157,7 @@ export default {
 
     async deleteItem(item) {
       this.editedIndex = this.toDoList.indexOf(item)
+      this.editedItem = Object.assign({}, item)
       await this.$axios.$delete(`/todo/${item.id}`)
       await this.initialize()
     },
@@ -178,6 +177,7 @@ export default {
         deadlineDate: this.editedItem.deadlineDate,
         status: this.editedItem.status,
       }
+
       if (this.editedIndex > -1) {
         await this.$axios.$put(`/todo/${this.editedItem.id}`, req)
       } else {
