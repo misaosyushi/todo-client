@@ -1,6 +1,14 @@
 import colors from 'vuetify/es5/util/colors'
 
+const envPath = `config/.env.${process.env.ENV || 'local'}`
+require('dotenv').config({ path: envPath })
+
+console.info('API base url: ', process.env.NUXT_ENV_BASE_URL)
+
 export default {
+  dotenv: {
+    filename: envPath,
+  },
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
   ssr: false,
 
@@ -23,7 +31,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [],
+  plugins: ['@/plugins/composition-api'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -45,15 +53,20 @@ export default {
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    baseURL: process.env.NUXT_ENV_BASE_URL,
+    headers: {
+      'X-API-KEY': process.env.NUXT_ENV_API_KEY,
+    },
+  },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      light: true,
       themes: {
-        dark: {
+        light: {
           primary: colors.blue.darken2,
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
