@@ -1,5 +1,7 @@
 # todo-client
 
+ToDoアプリのフロントです.
+
 ## Build Setup
 
 ```bash
