@@ -156,10 +156,9 @@ export default {
     },
 
     async deleteItem(item) {
-      this.editedIndex = this.toDoList.indexOf(item)
-      this.editedItem = Object.assign({}, item)
       await this.$axios.$delete(`/todo/${item.id}`)
       await this.initialize()
+      this.close()
     },
 
     close() {
