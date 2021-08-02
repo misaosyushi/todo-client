@@ -26,7 +26,7 @@
     "@nuxtjs/dotenv": "^1.4.1",
     "@vue/composition-api": "^1.0.0-beta.19",
     "core-js": "^3.6.5",
-    "nuxt": "^2.14.6"
+    "nuxt": "^2.15.7"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.6",
@@ -37,7 +37,7 @@
     "@nuxtjs/stylelint-module": "^4.0.0",
     "@nuxtjs/vuetify": "^1.11.2",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.10.0",
+    "eslint": "^7.32.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-nuxt": "^1.0.0",
     "eslint-plugin-prettier": "^3.1.4",
